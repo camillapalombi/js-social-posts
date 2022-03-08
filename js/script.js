@@ -66,8 +66,10 @@ let arrSavePosts = [];
 
 for (let i = 0; i < posts.length; i++) {
 
-    //codice dei post
-    let postsCode = (`<div class="post">
+    let postElement = document.createElement('div');
+    
+
+    postElement.innerHTML = (`<div class="post">
     <div class="post__header">
         <div class="post-meta">                    
             <div class="post-meta__icon">
@@ -86,7 +88,7 @@ for (let i = 0; i < posts.length; i++) {
     <div class="post__footer">
         <div class="likes js-likes">
             <div class="likes__cta">
-                <a class="like-button  js-like-button" href="#" data-postid="1">
+                <a class="like-button  js-like-button" href="#!" data-postid="1">
                     <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
                     <span class="like-button__label">Mi Piace</span>
                 </a>
@@ -98,20 +100,23 @@ for (let i = 0; i < posts.length; i++) {
     </div>            
 </div>`);
 
-arrSavePosts.push(postsCode);
+let btnLike = postElement.querySelector('.js-like-button');
+console.log(btnLike);
+
+btnLike.addEventListener('click', clickButton);
+
+    function clickButton() {
+    btnLike.classList.toggle("like-button--liked");
+    }
+
+arrSavePosts.push(postElement.innerHTML);
 
 containerPosts.innerHTML = arrSavePosts.join(""); //stampo i post
 
 }
 
 
-//2. al click "Mi Piace" diventa verde e incrementa di uno i likes affianco:
 
-const btnLike = document.querySelector('.like-button'); //bottone like
-console.log(btnLike)
 
-btnLike.addEventListener('click', clickButton);
 
-function clickButton() {
-    btnLike.classList.toggle("like-button--liked"); //il testo diventa verde al click
-}
+
