@@ -1,3 +1,5 @@
+//ARRAY DI OGGETI DESCRITTIVI PER OGNI POST
+
 const posts = [
     {
         "id": 1,
@@ -100,4 +102,16 @@ arrSavePosts.push(postsCode);
 
 containerPosts.innerHTML = arrSavePosts.join(""); //stampo i post
 
+}
+
+
+//2. al click "Mi Piace" diventa verde e incrementa di uno i likes affianco:
+
+const btnLike = document.querySelector('.like-button'); //bottone like
+console.log(btnLike)
+
+btnLike.addEventListener('click', clickButton);
+
+function clickButton() {
+    btnLike.classList.toggle("like-button--liked"); //il testo diventa verde al click
 }
