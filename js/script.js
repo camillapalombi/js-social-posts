@@ -51,69 +51,77 @@ const posts = [
         "media": "https://unsplash.it/600/400?image=534",
         "author": {
             "name": "Alessandro Sainato",
-            "image": "https://unsplash.it/300/300?image=29"//
+            "image": "https://unsplash.it/300/300?image=29"
         },
         "likes": 95,
         "created": "2021-03-05"
     }
 ];
 
+
 //1. stampo i post nel'DOM tramite JS:
 
-let containerPosts = document.getElementById('container'); //dove stamperò tutti i post
+const containerPosts = document.getElementById('container'); //container di tutti i post
 
-let arrSavePosts = [];
-
-for (let i = 0; i < posts.length; i++) {
-
-    let postElement = document.createElement('div');
+function createPost(postKey) { //fuzione creazione post che richiamo in fondo!!
     
-
-    postElement.innerHTML = (`<div class="post">
-    <div class="post__header">
-        <div class="post-meta">                    
-            <div class="post-meta__icon">
-                <img class="profile-pic" src="${posts[i].author.image}" alt="Phil Mangione">                    
+    const postElement = document.createElement('div');
+    postElement.classList.add('post');
+    postElement.innerHTML = (`<div class="post__header">
+            <div class="post-meta">                    
+                <div class="post-meta__icon">
+                    <img class="profile-pic" src="${postKey.author.image}" alt="${postKey.author.name}">                    
+                </div>
+                <div class="post-meta__data">
+                    <div class="post-meta__author">${postKey.author.name}</div>
+                    <div class="post-meta__time">4 mesi fa</div>
+                </div>                    
             </div>
-            <div class="post-meta__data">
-                <div class="post-meta__author">${posts[i].author.name}</div>
-                <div class="post-meta__time">4 mesi fa</div>
-            </div>                    
         </div>
-    </div>
-    <div class="post__text">Placeat libero ipsa nobis ipsum quibusdam quas harum ut. Distinctio minima iusto. Ad ad maiores et sint voluptate recusandae architecto. Et nihil ullam aut alias.</div>
-    <div class="post__image">
-        <img src="${posts[i].media}" alt="">
-    </div>
-    <div class="post__footer">
-        <div class="likes js-likes">
-            <div class="likes__cta">
-                <a class="like-button  js-like-button" href="#!" data-postid="1">
-                    <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
-                    <span class="like-button__label">Mi Piace</span>
-                </a>
+            <div class="post__text">${postKey.content}</div>
+            <div class="post__image">
+            <img src="${postKey.media}" alt="">
             </div>
-            <div class="likes__counter">
-                Piace a <b id="like-counter-1" class="js-likes-counter">${posts[i].likes}</b> persone
-            </div>
-        </div> 
-    </div>            
-</div>`);
+            <div class="post__footer">
+            <div class="likes js-likes">
+                <div class="likes__cta">
+                    <a class="like-button  js-like-button" href="#!" data-postid="1">
+                        <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
+                        <span class="like-button__label">Mi Piace</span>
+                    </a>
+                </div>
+                <div class="likes__counter">
+                    Piace a <b id="like-counter-1" class="js-likes-counter">${postKey.likes}</b> persone
+                </div>
+            </div> 
+        </div>`);
 
-let btnLike = postElement.querySelector('.js-like-button');
-console.log(btnLike);
+    let btnLike = postElement.querySelector('.like-button'); //bottone MI PIACE
 
-btnLike.addEventListener('click', clickButton);
+    btnLike.addEventListener('click', clickButton); //richiamo funzione click MI PIACE
 
-    function clickButton() {
-    btnLike.classList.toggle("like-button--liked");
+    function clickButton() { //funzione cambio colore al click di MI PIACE
+    
+        this.classList.toggle('like-button--liked'); //aggingo/tolgo classe color verde al click
+
     }
 
-arrSavePosts.push(postElement.innerHTML);
-
-containerPosts.innerHTML = arrSavePosts.join(""); //stampo i post
+    containerPosts.append(postElement); //stampo i post nel DOM
 
 }
+
+    //CICLO X LA CREAZIONE DEI 5 POST
+    for (let i = 0; i < posts.length; i++) { 
+    
+        createPost(posts[i]); //richiamo funzione creazione post
+    }
+
+
+
+
+
+
+
 
 
 
